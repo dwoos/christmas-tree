@@ -1,28 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env zsh
+# Author: Doug Woos, Dougal Sutherland
 
-__author__ = "Doug Woos"
+# Outputs the unicode Christmas tree glyph (1F384) if the current date
+# is between Dec. 1 and Dec. 25, inclusive. Throw it into your prompt,
+# e.g. (in zsh)
+# 
+# source $HOME/.christmas-tree
+# PROMPT='$(christmas-tree)'
 
-
-"""
-Outputs the unicode Christmas tree glyph (1F384) if the current date
-is between Dec. 1 and Dec. 25, inclusive. Throw it into your prompt,
-e.g. (in zsh)
-
-PROMPT='$(christmas-tree)  '
-
-Note: for this to work correctly, you've got to set Python's default
-encoding to utf-8 and have a UTF8 capable terminal. To do the former,
-put the following lines in your sitecustomize.py file
-(/Library/Python/2.7/site-packages/sitecustomize.py on OS X):
-
-import sys
-sys.setdefaultencoding('utf-8')
-"""
-
-import sys
-from datetime import datetime
-
-n = datetime.now()
-
-if n.month == 12 and n.day <= 25:
-    print u'\U0001F384'
+function christmas-tree () {
+    d=$(date '+%m %d'); # eg '12 01'; space because otherwise date complains
+    d=${d//[[:space:]]}; # eg '12.01', '12.25'
+    if [[ $d -ge 12.01 && $d -le 12.25 ]]; then
+        echo -e '\U0001F384 '
+    fi
+}
