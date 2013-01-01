@@ -9,7 +9,7 @@
 # PROMPT='$(christmas-tree)'
 
 function christmas-tree () {
-    d=$(date '+%m %d'); # eg '12 01'; space because otherwise date complains
+    d=$(date '+%-m %d'); # eg '12 01'; space because otherwise date complains
     d=${d/[[:space:]]/.}; # eg '12.01', '12.25'
     if [[ $d -ge 12.01 && $d -le 12.25 ]]; then
         echo -e '\U0001F384 '
